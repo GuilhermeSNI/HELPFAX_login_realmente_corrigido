@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HELPFAX • Estoque</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section id="loginPage" class="login-page">
+    <div class="login-shell">
+      <div class="brand-center">
+        <img src="images/helpax-logo.png" alt="HELPFAX Solução em Impressão" class="login-logo">
+      </div>
+      <form id="loginForm" class="login-card">
+        <div class="eyebrow">ACESSO RESTRITO</div>
+        <h1>Entrar no sistema</h1>
+        <p>Controle de estoque de toners</p>
+        <label for="login">Usuário</label>
+        <input id="login" value="guilherme" autocomplete="username" required>
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+        <button type="submit" id="loginButton">Entrar</button>
+        <div id="loginError" class="error" role="alert"></div>
+        <div class="login-hint">Acesso de demonstração: <strong>guilherme</strong> / <strong>1234</strong></div>
+      </form>
+      <small class="login-footer">HELPFAX • Solução em Impressão</small>
+    </div>
+  </section>
+
+  <section id="appPage" class="hidden">
+    <header class="topbar">
+      <div class="brand-home">
+        <img src="images/helpax-logo.png" alt="HELPFAX" class="home-logo">
+        <div class="brand-divider"></div>
+        <div>
+          <h1>Controle de Estoque</h1>
+          <span>Toners • entradas • saídas • histórico</span>
+        </div>
+      </div>
+      <div class="user-area">
+        <span id="userName"></span>
+        <button id="logout" class="secondary">Sair</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="message"></div>
+
+      <section class="stats">
+        <div class="stat"><span>Modelos</span><strong id="totalModels">0</strong></div>
+        <div class="stat"><span>Unidades</span><strong id="totalUnits">0</strong></div>
+        <div class="stat"><span>Estoque baixo</span><strong id="low">0</strong></div>
+        <div class="stat"><span>Sem estoque</span><strong id="out">0</strong></div>
+      </section>
+
+      <nav class="tabs" aria-label="Navegação">
+        <button class="tab active" data-tab="estoque">Estoque</button>
+        <button class="tab" data-tab="historico">Histórico</button>
+      </nav>
+
+      <section id="estoque" class="tab-content">
+        <div class="toolbar">
+          <input id="search" placeholder="Pesquisar marca, modelo ou cor" aria-label="Pesquisar estoque">
+          <button id="newToner">+ Novo toner</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Categoria</th><th>Modelo</th><th>Cor</th>
+                <th>Quantidade</th><th>Status</th><th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="tonerTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="historico" class="tab-content hidden">
+        <div class="table-card">
+          <div class="history-head">
+            <h2>Histórico de movimentações</h2>
+            <button id="refreshHistory" class="secondary">Atualizar</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th><th>Categoria</th><th>Modelo</th><th>Cor</th>
+                <th>Tipo</th><th>Qtd.</th><th>Usuário</th><th>Observação</th>
+              </tr>
+            </thead>
+            <tbody id="historyTable"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <div id="modal" class="modal hidden">
+    <form id="tonerForm" class="modal-card">
+      <div class="modal-head">
+        <h2>Novo toner</h2><button type="button" id="closeModal" class="x">×</button>
+      </div>
+      <label for="categoria">Categoria</label>
+      <select id="categoria" required></select>
+      <label for="modelo">Modelo</label>
+      <input id="modelo" placeholder="Ex.: Ricoh 3710" required>
+      <label for="cor">Cor</label>
+      <select id="cor">
+        <option>Preto</option><option>Ciano</option><option>Magenta</option>
+        <option>Amarelo</option><option>Colorido</option>
+      </select>
+      <label for="quantidade">Quantidade inicial</label>
+      <input id="quantidade" type="number" min="0" value="0" required>
+      <button type="submit">Cadastrar toner</button>
+    </form>
+  </div>
+
+  <div id="moveModal" class="modal hidden">
+    <form id="moveForm" class="modal-card">
+      <div class="modal-head">
+        <h2 id="moveTitle">Movimentação</h2><button type="button" id="closeMove" class="x">×</button>
+      </div>
+      <input id="moveTonerId" type="hidden">
+      <input id="moveType" type="hidden">
+      <div id="moveInfo" class="move-info"></div>
+      <label for="moveQty">Quantidade</label>
+      <input id="moveQty" type="number" min="1" value="1" required>
+      <label for="moveObs">Observação</label>
+      <input id="moveObs" placeholder="Ex.: chegada do fornecedor">
+      <button id="moveSubmit" type="submit">Registrar</button>
+    </form>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

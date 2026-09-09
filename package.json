@@ -1,0 +1,17 @@
+{
+  "name": "sistema-estoque-toner",
+  "version": "1.0.0",
+  "description": "Sistema de controle de estoque de toners com Node.js e PostgreSQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1",
+    "dotenv": "^16.4.7"
+  }
+}
